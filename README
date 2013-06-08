@@ -1,5 +1,6 @@
 ######说明
 GetSubtitle v1.0
+GetSubtitle是linux下的实用工具，能够自动从射手网下载最匹配的电影字幕。
 源码地址：https://github.com/firnsan/GetSubtitle
 作者：firnsan@gmail.com
 
