@@ -522,7 +522,7 @@ int CSVPToolBox::CopyFile(std::wstring sourcePath, std::wstring destPath)
     char* strsource=WideChar2MultiByte(sourcePath.c_str());
     char* strdest=WideChar2MultiByte(destPath.c_str());
     char s[512];
-    sprintf(s,"cp %s '%s'",strsource,strdest);
+    sprintf(s,"cp %s \"%s\"",strsource,strdest);
     system(s);
     return 0;
 }
