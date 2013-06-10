@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 #include "SVPToolBox.h"
 #include "Charconvert.h"
 #include "SubTransFormat.h"
@@ -52,7 +53,7 @@ void GetUrlByType(int32_t req_type , int iTryID,char* apiurl){
 			break;*/
 
 		case 'sapi':
-			strcat(apiurl, "api/subapi.php" );//apiurl×îºÃÊÇÊý×é£¬²»È»»á³ö´í
+			strcat(apiurl, "api/subapi.php" );//apiurlï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½
 			break;
 	}
 	
@@ -107,7 +108,7 @@ int SetCURLopt(CURL *curl)
 
 
 
-//int ExtractDataFromAiSubRecvBuffer_STL(std::wstring szFilePath,FILE* sAiSubRecvBuff)//²»¼Ó-g Ñ¡Ïî»á¶Ï´íÎó£¬¸úszFilePathÕâ¸ö²ÎÊý´«µÝÓÐ¹Ø
+//int ExtractDataFromAiSubRecvBuffer_STL(std::wstring szFilePath,FILE* sAiSubRecvBuff)//ï¿½ï¿½ï¿½ï¿½-g Ñ¡ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ó£¬¸ï¿½szFilePathï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¹ï¿½
 int ExtractDataFromAiSubRecvBuffer_STL(FILE* sAiSubRecvBuff)
 {
 	char szSBuff[2] = {0,0};
@@ -153,7 +154,9 @@ int main(int argc, char* argv[])
     }
 
     printf("Please wait...\n");
-
+	
+    setlocale(LC_ALL,"");
+	
     SubTransFormat SubTF;
 
     char* strfilepath=argv[1];
