@@ -5,7 +5,7 @@
 
 char* WideChar2MultiByte(const wchar_t* szIn)
 {
-	size_t len=wcslen(szIn)+1;
+	size_t len=512;
 
 	char* szOut=(char*)malloc(sizeof(char)*len);
 	wcstombs( szOut, szIn, len);
