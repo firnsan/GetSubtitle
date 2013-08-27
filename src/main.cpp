@@ -53,7 +53,7 @@ void GetUrlByType(int32_t req_type , int iTryID,char* apiurl){
 			break;*/
 
 		case 'sapi':
-			strcat(apiurl, "api/subapi.php" );//apiurl��������飬��Ȼ����
+            strcat(apiurl, "api/subapi.php" );
 			break;
 	}
 	
@@ -94,8 +94,7 @@ int SetCURLopt(CURL *curl)
 	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
 	//curl_easy_setopt(curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_SSLv2);
 
-
-    //curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
+	//curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
 
 	//curl_easy_setopt(curl, CURLOPT_ENCODING, "gzip"); not native supported. so dont use this option
 	// MUST not have this line curl_easy_setopt(curl, CURLOPT_POST, ....);
@@ -108,7 +107,6 @@ int SetCURLopt(CURL *curl)
 
 
 
-//int ExtractDataFromAiSubRecvBuffer_STL(std::wstring szFilePath,FILE* sAiSubRecvBuff)//����-g ѡ���ϴ��󣬸�szFilePath��������й�
 int ExtractDataFromAiSubRecvBuffer_STL(FILE* sAiSubRecvBuff)
 {
 	char szSBuff[2] = {0,0};
@@ -132,10 +130,7 @@ int ExtractDataFromAiSubRecvBuffer_STL(FILE* sAiSubRecvBuff)
 		{
 			int exterr = toolbox.HandleSubPackage(sAiSubRecvBuff);
 			if(exterr)
-			{
-                //ret = exterr;
 				break;
-			}
 		}
 
     //fclose(sAiSubRecvBuff);//can't close
@@ -161,8 +156,6 @@ int main(int argc, char* argv[])
 
     char* strfilepath=argv[1];
 
-    //std::wstring filepath=L"/home/zhao/oz.the.great.and.powerful.2013.720p.bluray.x264-sparks.mkv";
-    //char* strfilepath=WideChar2MultiByte(filepath.c_str());
 
     std::wstring filepath=MutliByte2WideChar(strfilepath);
     std::wstring filehash=SubTF.ComputerFileHash_STL(strfilepath);
@@ -183,6 +176,7 @@ int main(int argc, char* argv[])
 	struct curl_httppost *formpost=NULL;
 	struct curl_httppost *lastptr=NULL;
     char* form;
+
 	form=WideChar2MultiByte(filepath.c_str());
     curl_formadd(&formpost,	&lastptr, CURLFORM_COPYNAME, "pathinfo", CURLFORM_COPYCONTENTS, form,CURLFORM_END);
 	free(form);
@@ -195,11 +189,12 @@ int main(int argc, char* argv[])
 	curl_formadd(&formpost, &lastptr, CURLFORM_COPYNAME, "vhash", CURLFORM_COPYCONTENTS, form,CURLFORM_END);
 	free(form);
 	
-    
 
     form=WideChar2MultiByte(shortname.c_str());
 	curl_formadd(&formpost, &lastptr, CURLFORM_COPYNAME, "shortname", CURLFORM_COPYCONTENTS, form,CURLFORM_END);
     free(form);
+
+
 
     CURL* curl = curl_easy_init();
 	SetCURLopt(curl);
@@ -255,18 +250,11 @@ int main(int argc, char* argv[])
     if (szSubFilePath == L"EXIST") printf("\nThe same subtitle already existed!\n");
 
     else if (!szSubFilePath.empty())
-        {
-      //szSubArray -> push_back(szSubFilePath);
-      //CPath fnPath(szSubFilePath.c_str());
-      //fnPath.StripPath();
-      printf("\nSubtitle downloaded to %s\n\n",WideChar2MultiByte(szSubFilePath.c_str()));
+	printf("\nSubtitle downloaded to %s\n\n",WideChar2MultiByte(szSubFilePath.c_str()));
 
-      //iSubTotal++;
-         }
         else
-        {
          printf("\nFail to get sub file\n");
-        }
+        
   }
       return 0;
   }
