@@ -12,37 +12,7 @@ GetSubtitle是linux下的实用工具，能够自动从射手网下载最匹配�
 
 
 ######64位系统下编译curl库和GetSubtitle v1.0
-由于本软件用到了第三方类库：curl库，请您先编译安装curl库。
-需要用到的第三方库下载地址：http://pan.baidu.com/share/link?shareid=78535552&uk=2217112330
-
-编译安装curl库步骤如下：
-1.首先编译openssl，切换到openssl源码目录
-
-./Configure shared no-asm linux-elf（如果没有no-asm会可能会出现错误）
-make
-sudo make install
-完毕后opensll将在：/usr/loacl/ssl
-
-2.编译zlib，切换到zlib源码目录
-
-./configure
-make test（不可省）
-sudo make install
-完毕后zlib安装在： /usr/local/lib/libz.* 和/usr/local/include/zlib.h
-
-3.编译curl，切换到curl源码目录。如果openssl在/usr/loacl/ssl下，直接运行下面的：
-./configure --with-ssl --with-zlib=/usr/local/lib/ CFLAGS='-m32' CXXFLAGS='-m32'
-make
-sudo make install
-完毕后curl安装在：/usr/local/bin, /usr/local/lib
-
-4.编译GetSubtitle v1.0,切换到本目录
-./configure
-make CFLAGS='-m32' CXXFLAGS='-m32'
-make install(可省)
-安装好后，运行GetSubtitle VideoPath（你的电影路径）即可下载字幕到电影所在路径。
-比如：GetSubtitle ~/oz.the.great.and.powerful.2013.720p.bluray.x264-sparks.mkv
-
+把src目录下的MD5Checksum.h和MD5Checksum.cpp中的long全部替换成int，这样就能编译成64位程序了，编译方法请看 32位系统下编译curl库和GetSubtitle v1.0
 
 
 ######32位系统下编译curl库和GetSubtitle v1.0
