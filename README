@@ -7,6 +7,7 @@ GetSubtitle是linux下的实用工具，能够自动从射手网下载最匹配�
 比如：GetSubtitle ~/oz.the.great.and.powerful.2013.720p.bluray.x264-sparks.mkv
 
 
+有编译问题或使用问题,可到https://github.com/firnsan/GetSubtitle/issues/寻找解决方法.
 
 
 ######64位系统下编译curl库和GetSubtitle v1.0
