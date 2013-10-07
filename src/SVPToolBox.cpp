@@ -281,6 +281,8 @@ int CSVPToolBox::ExtractEachSubFile(FILE* fp, int iSubPosId){
     tmpnam(otmpfilename);
 
 	FILE* fpt=fopen(otmpfilename,"wb+");
+    unlink(otmpfilename);
+    
 	if(fpt==NULL){
 
 		return -4;
@@ -307,7 +309,8 @@ int CSVPToolBox::ExtractEachSubFile(FILE* fp, int iSubPosId){
 
     printf("\nDecompressing file\n");
     unpackGZfile( otmpfilename , otmpfilenameraw );
-
+    unlink(otmpfilenameraw);
+    
 	// add filename and tmp name to szaTmpFileNames
 	//this->szaSubTmpFileList[iSubPosId].Append( this->UTF8ToCString(szExtName, iExtLength)); //why cant use + ???
 	this->szaSubTmpFileList[iSubPosId].append(MutliByte2WideChar(szExtName));

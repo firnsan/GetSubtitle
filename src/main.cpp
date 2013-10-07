@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unistd.h>
 #include <curl/curl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -205,9 +206,11 @@ int main(int argc, char* argv[])
     tmpnam(filename);
 
 	FILE* fp=fopen(filename,"wb+");
-
+    unlink(filename);
+    
     //FILE* fp=tmpfile();
     if(fp==NULL) return 0;
+
     
     printf("Searching for subtitles\n\n");
 
