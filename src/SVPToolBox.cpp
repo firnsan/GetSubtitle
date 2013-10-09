@@ -145,7 +145,7 @@ std::wstring CSVPToolBox::DetectSubFileLanguage_STL(std::wstring fn)
 
     if(totalWideChar < (totalChar / 10) && totalWideChar < 1700)
       szRet = L".eng";
-  }
+      }
   return szRet;
 }
 
@@ -281,7 +281,7 @@ int CSVPToolBox::ExtractEachSubFile(FILE* fp, int iSubPosId){
     tmpnam(otmpfilename);
 
 	FILE* fpt=fopen(otmpfilename,"wb+");
-    unlink(otmpfilename);
+    //unlink(otmpfilename);can not unlink here,the file will be opened again.
     
 	if(fpt==NULL){
 
@@ -309,7 +309,7 @@ int CSVPToolBox::ExtractEachSubFile(FILE* fp, int iSubPosId){
 
     printf("\nDecompressing file\n");
     unpackGZfile( otmpfilename , otmpfilenameraw );
-    unlink(otmpfilenameraw);
+    //unlink(otmpfilenameraw);can not unlink here,the file will be opened again.
     
 	// add filename and tmp name to szaTmpFileNames
 	//this->szaSubTmpFileList[iSubPosId].Append( this->UTF8ToCString(szExtName, iExtLength)); //why cant use + ???
@@ -318,7 +318,7 @@ int CSVPToolBox::ExtractEachSubFile(FILE* fp, int iSubPosId){
 	this->szaSubTmpFileList[iSubPosId].append(MutliByte2WideChar(otmpfilenameraw));
 	this->szaSubTmpFileList[iSubPosId].append( L";");
 
-
+    unlink(otmpfilename);
 	return 0;
 }
 
@@ -331,7 +331,7 @@ int CSVPToolBox::Explode(std::wstring szIn,
 
   std::wstring resToken;
 
-
+  int size=sizeof(wchar_t);
   wchar_t* str = new wchar_t[szIn.length() + 1];
   wcscpy(str, szIn.c_str());
   wchar_t* sep = new wchar_t[szTok.length() + 1];
@@ -348,6 +348,7 @@ int CSVPToolBox::Explode(std::wstring szIn,
 
   delete[] str;
   delete[] sep;
+
   return 0;
 }
 
@@ -499,8 +500,9 @@ std::wstring CSVPToolBox::getSubFileByTempid_STL(int iTmpID,char* strPath)
     else
       printf("Count of szaSubDescs not match with count of subs ");
 
-    remove(WideChar2MultiByte(szSource.c_str()));
+    unlink(WideChar2MultiByte(szSource.c_str()));
   }
+  
   if(ialreadyExist)
     return L"EXIST";
   else

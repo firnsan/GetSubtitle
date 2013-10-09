@@ -253,7 +253,7 @@ int main(int argc, char* argv[])
     if (szSubFilePath == L"EXIST") printf("\nThe same subtitle already existed!\n");
 
     else if (!szSubFilePath.empty())
-	printf("\nSubtitle downloaded to %s\n\n",WideChar2MultiByte(szSubFilePath.c_str()));
+        printf("\nSubtitle downloaded to %s\n\n",WideChar2MultiByte(szSubFilePath.c_str()));
 
         else
          printf("\nFail to get sub file\n");
