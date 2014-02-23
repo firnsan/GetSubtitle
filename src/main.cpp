@@ -10,86 +10,86 @@
 #include "SubTransFormat.h"
 #include "shooterclient.key"
 
-#define SVP_REV_NUMBER	0
+#define SVP_REV_NUMBER  0
 #define UNIQU_HASH_SIZE 512
 
 CSVPToolBox toolbox;
 
 void GetUrlByType(int32_t req_type , int iTryID,char* apiurl)
 {
-	strcpy(apiurl,"https://www.shooter.cn/");
-	if(iTryID > 1 && iTryID <= 11)
-	{
-		if(iTryID >= 4)
-		{
-			int iSvrId = 4 + rand()%7;
-			if(iTryID%2)
-			{
-				sprintf(apiurl,"https://splayer%d.shooter.cn/", iSvrId-1);
-			}
-			else
-			{
-				sprintf(apiurl,"http://splayer%d.shooter.cn/", iSvrId-1);
-			}
-		}else
-		{
-			sprintf(apiurl,"https://splayer%d.shooter.cn/", iTryID-1);
-		}
+    strcpy(apiurl,"https://www.shooter.cn/");
+    if(iTryID > 1 && iTryID <= 11)
+    {
+        if(iTryID >= 4)
+        {
+            int iSvrId = 4 + rand()%7;
+            if(iTryID%2)
+            {
+                sprintf(apiurl,"https://splayer%d.shooter.cn/", iSvrId-1);
+            }
+            else
+            {
+                sprintf(apiurl,"http://splayer%d.shooter.cn/", iSvrId-1);
+            }
+        }else
+        {
+            sprintf(apiurl,"https://splayer%d.shooter.cn/", iTryID-1);
+        }
         
-	}else if(iTryID > 11) 
-	{
-		strcpy(apiurl,"http://svplayer.shooter.cn/");
-	}
+    }else if(iTryID > 11) 
+    {
+        strcpy(apiurl,"http://svplayer.shooter.cn/");
+    }
 
-	switch(req_type){
+    switch(req_type){
 /*
     case 'upda':
         apiurl.Append( "api/updater.php?ver=3.6" );
         break;
     case 'upsb':
         apiurl.Append( "api/subup.php" );
-        break;	*/
+        break;  */
 
     case 'sapi':
         strcat(apiurl, "api/subapi.php" );
         break;
-	}
-	
+    }
+    
 }
 
 int SetCURLopt(CURL *curl)
 {
-	/* Comment for Subddownload */
-	char buff[1024];
+    /* Comment for Subddownload */
+    char buff[1024];
     
-	/* Comment for Subddownload */
+    /* Comment for Subddownload */
     sprintf( buff, "SPlayer Build %d", SVP_REV_NUMBER ); /* splayer's Seris Number */
 
-	char buff_cookie[UNIQU_HASH_SIZE];
-	memset(buff_cookie,0,UNIQU_HASH_SIZE);
+    char buff_cookie[UNIQU_HASH_SIZE];
+    memset(buff_cookie,0,UNIQU_HASH_SIZE);
 
-	curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1);
-	curl_easy_setopt(curl, CURLOPT_USERAGENT, buff); /* splayer's Seris Number */
+    curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1);
+    curl_easy_setopt(curl, CURLOPT_USERAGENT, buff); /* splayer's Seris Number */
 
-	curl_easy_setopt(curl, CURLOPT_TIMEOUT, 40);
-	curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 20);
-	curl_easy_setopt(curl,CURLOPT_HTTP_VERSION,CURL_HTTP_VERSION_1_0); //must use 1.0 for proxy
+    curl_easy_setopt(curl, CURLOPT_TIMEOUT, 40);
+    curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 20);
+    curl_easy_setopt(curl,CURLOPT_HTTP_VERSION,CURL_HTTP_VERSION_1_0); //must use 1.0 for proxy
 
-	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
     
-	/*
+    /*
     curl_easy_setopt(curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_SSLv2);
 
-	curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);  //for verbose
+    curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);  //for verbose
 
-	curl_easy_setopt(curl, CURLOPT_ENCODING, "gzip"); not native supported. so dont use this option
-	MUST not have this line curl_easy_setopt(curl, CURLOPT_POST, ....);
-	
-	headerlist = curl_slist_append(headerlist, buf); //WTF ??
+    curl_easy_setopt(curl, CURLOPT_ENCODING, "gzip"); not native supported. so dont use this option
+    MUST not have this line curl_easy_setopt(curl, CURLOPT_POST, ....);
     
-	curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headerlist); */
+    headerlist = curl_slist_append(headerlist, buf); //WTF ??
     
-	return 0;
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headerlist); */
+    
+    return 0;
 }
 
 
@@ -97,14 +97,14 @@ int SetCURLopt(CURL *curl)
 
 int ExtractDataFromAiSubRecvBuffer_STL(FILE* sAiSubRecvBuff)
 {
-	char szSBuff[2] = {0,0};
-	int ret = 0;
-	fseek(sAiSubRecvBuff, 0, SEEK_SET); /* move point to begining of file */
+    char szSBuff[2] = {0,0};
+    int ret = 0;
+    fseek(sAiSubRecvBuff, 0, SEEK_SET); /* move point to begining of file */
 
-	if (fread(szSBuff, sizeof(char), 1, sAiSubRecvBuff) < 1)
-		printf("Fail to retrive First Stat Code\n");
+    if (fread(szSBuff, sizeof(char), 1, sAiSubRecvBuff) < 1)
+        printf("Fail to retrive First Stat Code\n");
 
-	int iStatCode = szSBuff[0];	/* iStatcode reprensents how many subtitles found*/
+    int iStatCode = szSBuff[0]; /* iStatcode reprensents how many subtitles found*/
 
     if (iStatCode <= 0)
     {
@@ -137,19 +137,19 @@ int main(int argc, char* argv[])
     }
 
     printf("Please wait...\n");
-	
+    
     setlocale(LC_ALL,"");
 
 
     /* Get video's info, such as name, hash */
     SubTransFormat SubTF;
-    char* strfilepath=argv[1];		/* mutibyte-char */
-    std::wstring filepath=MutliByte2WideChar(strfilepath);	/* widechar */
+    char* strfilepath=argv[1];      /* mutibyte-char */
+    std::wstring filepath=MutliByte2WideChar(strfilepath);  /* widechar */
   
     std::wstring filehash=SubTF.ComputerFileHash_STL(strfilepath);
     char* strfilehash=WideChar2MultiByte(filehash.c_str());
 
-	std::wstring shortname= SubTF.GetShortFileNameForSearch(filepath);        
+    std::wstring shortname= SubTF.GetShortFileNameForSearch(filepath);        
     char* strshortname=WideChar2MultiByte(shortname.c_str());
 
     std::wstring uniqueIDHash2=SubTF.genVHash(strfilepath,strfilehash);  
@@ -157,30 +157,30 @@ int main(int argc, char* argv[])
     
     printf("hash:%s\nshortname:%s\nuniqueIDHash:%s\n",
            strfilehash,strshortname,struniqueIDHash2);
-	
+    
 
     /* construct post data with the info */
-	struct curl_httppost *formpost=NULL;
-	struct curl_httppost *lastptr=NULL;
+    struct curl_httppost *formpost=NULL;
+    struct curl_httppost *lastptr=NULL;
     char* form;
 
-	form=WideChar2MultiByte(filepath.c_str());
-    curl_formadd(&formpost,	&lastptr, CURLFORM_COPYNAME,
+    form=WideChar2MultiByte(filepath.c_str());
+    curl_formadd(&formpost, &lastptr, CURLFORM_COPYNAME,
                  "pathinfo", CURLFORM_COPYCONTENTS, form,CURLFORM_END);
-	free(form);
+    free(form);
 
     form=WideChar2MultiByte(filehash.c_str());
-	curl_formadd(&formpost,	&lastptr, CURLFORM_COPYNAME,
+    curl_formadd(&formpost, &lastptr, CURLFORM_COPYNAME,
                  "filehash", CURLFORM_COPYCONTENTS, form,CURLFORM_END);
     free(form);
 
-	form=WideChar2MultiByte(uniqueIDHash2.c_str());
-	curl_formadd(&formpost, &lastptr, CURLFORM_COPYNAME,
+    form=WideChar2MultiByte(uniqueIDHash2.c_str());
+    curl_formadd(&formpost, &lastptr, CURLFORM_COPYNAME,
                  "vhash", CURLFORM_COPYCONTENTS, form,CURLFORM_END);
-	free(form);
+    free(form);
 
     form=WideChar2MultiByte(shortname.c_str());
-	curl_formadd(&formpost, &lastptr, CURLFORM_COPYNAME,
+    curl_formadd(&formpost, &lastptr, CURLFORM_COPYNAME,
                  "shortname", CURLFORM_COPYCONTENTS, form,CURLFORM_END);
     free(form);
 
@@ -192,7 +192,7 @@ int main(int argc, char* argv[])
      */
     char filename[L_tmpnam];
     tmpnam(filename);
-	FILE* fp=fopen(filename,"wb+");
+    FILE* fp=fopen(filename,"wb+");
     unlink(filename);  
     if(fp==NULL)
         return 0;
@@ -205,42 +205,42 @@ int main(int argc, char* argv[])
     /* start to post data and receive subtitle 
      * data using the tmp file pointed by fp */
     CURL* curl = curl_easy_init();
-	SetCURLopt(curl);
+    SetCURLopt(curl);
 
     char url[100];
-	for (int i=1;i<=7;i++)
-	{	
+    for (int i=1;i<=7;i++)
+    {   
         GetUrlByType('sapi',i,url);
 
-		curl_easy_setopt(curl, CURLOPT_URL, url);
-		curl_easy_setopt(curl, CURLOPT_HTTPPOST, formpost);
+        curl_easy_setopt(curl, CURLOPT_URL, url);
+        curl_easy_setopt(curl, CURLOPT_HTTPPOST, formpost);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
 
         CURLcode res = curl_easy_perform(curl);
         if (res==0)
         {
-			int respcode=0;
-			curl_easy_getinfo(curl,CURLINFO_RESPONSE_CODE, &respcode);
-			if (respcode==200)
-			{
+            int respcode=0;
+            curl_easy_getinfo(curl,CURLINFO_RESPONSE_CODE, &respcode);
+            if (respcode==200)
+            {
                 /* extract data from fp to another temp files*/
                 ExtractDataFromAiSubRecvBuffer_STL(fp);
-			}
-			break;
+            }
+            break;
         }
-		else
-		{
-			long l_oserr = 0;
-			curl_easy_getinfo(curl,CURLINFO_OS_ERRNO,&l_oserr);
-			printf(curl_easy_strerror(res));
-		}
-	}
-	curl_easy_cleanup(curl);
+        else
+        {
+            long l_oserr = 0;
+            curl_easy_getinfo(curl,CURLINFO_OS_ERRNO,&l_oserr);
+            printf(curl_easy_strerror(res));
+        }
+    }
+    curl_easy_cleanup(curl);
 
 
     
-	std::wstring szSubFilePath;
-	for (int i = 0; i < toolbox.szaSubTmpFileList.size(); i++)
+    std::wstring szSubFilePath;
+    for (int i = 0; i < toolbox.szaSubTmpFileList.size(); i++)
     {
         szSubFilePath = toolbox.getSubFileByTempid_STL(i,strfilepath);
         if (szSubFilePath == L"EXIST")
