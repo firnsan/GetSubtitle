@@ -2,7 +2,7 @@
 GetSubtitle v1.0
 GetSubtitle是linux下的实用工具，能够自动从射手网下载最匹配的电影字幕。
 源码地址：https://github.com/firnsan/GetSubtitle
-作者：firnsan@gmail.com www.whitepig.org
+作者：firnsan@gmail.com
 用法：运行"GetSubtitle VideoPath（你的电影路径）"即可下载字幕到电影所在路径。
 比如：GetSubtitle ~/oz.the.great.and.powerful.2013.720p.bluray.x264-sparks.mkv
 
@@ -10,13 +10,7 @@ GetSubtitle是linux下的实用工具，能够自动从射手网下载最匹配�
 有编译问题或使用问题,在这寻找解决办法https://github.com/firnsan/GetSubtitle/issues
 
 
-######64位系统下编译curl库和GetSubtitle v1.0
-把src目录下的MD5Checksum.h和MD5Checksum.cpp中的long全部替换成int，这样就能编译成64位程序了，编译方法请看 32位系统下编译curl库和GetSubtitle v1.0
-
-
-
-
-######32位系统下编译curl库和GetSubtitle v1.0
+######编译curl库和GetSubtitle v1.0
 由于本软件用到了第三方类库：curl库，请您先编译安装curl库。
 需要用到的第三方库下载地址：http://pan.baidu.com/share/link?shareid=78535552&uk=2217112330
 

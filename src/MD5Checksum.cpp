@@ -282,14 +282,14 @@ std::wstring CMD5Checksum::GetMD5(unsigned char* pBuf, unsigned int nLength)
 /*****************************************************************************************
 FUNCTION:   CMD5Checksum::RotateLeft
 DETAILS:    private
-DESCRIPTION:  Rotates the bits in a 32 bit unsigned long left by a specified amount
-RETURNS:    The rotated unsigned long 
-ARGUMENTS:    unsigned long x : the value to be rotated
+DESCRIPTION:  Rotates the bits in a 32 bit unsigned L32b left by a specified amount
+RETURNS:    The rotated unsigned L32b 
+ARGUMENTS:    unsigned L32b x : the value to be rotated
         int n   : the number of bits to rotate by
 *****************************************************************************************/
-unsigned long CMD5Checksum::RotateLeft(unsigned long x, int n)
+unsigned L32b CMD5Checksum::RotateLeft(unsigned L32b x, int n)
 {
-  //check that unsigned long is 4 bytes long - true in Visual C++ 6 and 32 bit Windows
+  //check that unsigned L32b is 4 bytes L32b - true in Visual C++ 6 and 32 bit Windows
 
   //rotate and return x
   return (x << n) | (x >> (32 - n));
@@ -301,17 +301,17 @@ FUNCTION:   CMD5Checksum::FF
 DETAILS:    protected
 DESCRIPTION:  Implementation of basic MD5 transformation algorithm
 RETURNS:    none
-ARGUMENTS:    unsigned long &A, B, C, D : Current (partial) checksum
-        unsigned long X           : Input data
-        unsigned long S       : MD5_SXX Transformation constant
-        unsigned long T       : MD5_TXX Transformation constant
+ARGUMENTS:    unsigned L32b &A, B, C, D : Current (partial) checksum
+        unsigned L32b X           : Input data
+        unsigned L32b S       : MD5_SXX Transformation constant
+        unsigned L32b T       : MD5_TXX Transformation constant
 NOTES:      None
 *****************************************************************************************/
-void CMD5Checksum::FF(unsigned long& A, unsigned long B, unsigned long C,
-                      unsigned long D, unsigned long X,
-                      unsigned long S, unsigned long T)
+void CMD5Checksum::FF(unsigned L32b& A, unsigned L32b B, unsigned L32b C,
+                      unsigned L32b D, unsigned L32b X,
+                      unsigned L32b S, unsigned L32b T)
 {
-  unsigned long F = (B & C) | (~B & D);
+  unsigned L32b F = (B & C) | (~B & D);
   A += F + X + T;
   A = RotateLeft(A, S);
   A += B;
@@ -323,17 +323,17 @@ FUNCTION:   CMD5Checksum::GG
 DETAILS:    protected
 DESCRIPTION:  Implementation of basic MD5 transformation algorithm
 RETURNS:    none
-ARGUMENTS:    unsigned long &A, B, C, D : Current (partial) checksum
-        unsigned long X           : Input data
-        unsigned long S       : MD5_SXX Transformation constant
-        unsigned long T       : MD5_TXX Transformation constant
+ARGUMENTS:    unsigned L32b &A, B, C, D : Current (partial) checksum
+        unsigned L32b X           : Input data
+        unsigned L32b S       : MD5_SXX Transformation constant
+        unsigned L32b T       : MD5_TXX Transformation constant
 NOTES:      None
 *****************************************************************************************/
-void CMD5Checksum::GG(unsigned long& A, unsigned long B, unsigned long C,
-                      unsigned long D, unsigned long X,
-                      unsigned long S, unsigned long T)
+void CMD5Checksum::GG(unsigned L32b& A, unsigned L32b B, unsigned L32b C,
+                      unsigned L32b D, unsigned L32b X,
+                      unsigned L32b S, unsigned L32b T)
 {
-  unsigned long G = (B & D) | (C & ~D);
+  unsigned L32b G = (B & D) | (C & ~D);
   A += G + X + T;
   A = RotateLeft(A, S);
   A += B;
@@ -345,17 +345,17 @@ FUNCTION:   CMD5Checksum::HH
 DETAILS:    protected
 DESCRIPTION:  Implementation of basic MD5 transformation algorithm
 RETURNS:    none
-ARGUMENTS:    unsigned long &A, B, C, D : Current (partial) checksum
-        unsigned long X           : Input data
-        unsigned long S       : MD5_SXX Transformation constant
-        unsigned long T       : MD5_TXX Transformation constant
+ARGUMENTS:    unsigned L32b &A, B, C, D : Current (partial) checksum
+        unsigned L32b X           : Input data
+        unsigned L32b S       : MD5_SXX Transformation constant
+        unsigned L32b T       : MD5_TXX Transformation constant
 NOTES:      None
 *****************************************************************************************/
-void CMD5Checksum::HH(unsigned long& A, unsigned long B, unsigned long C,
-                      unsigned long D, unsigned long X,
-                      unsigned long S, unsigned long T)
+void CMD5Checksum::HH(unsigned L32b& A, unsigned L32b B, unsigned L32b C,
+                      unsigned L32b D, unsigned L32b X,
+                      unsigned L32b S, unsigned L32b T)
 {
-  unsigned long H = (B ^ C ^ D);
+  unsigned L32b H = (B ^ C ^ D);
   A += H + X + T;
   A = RotateLeft(A, S);
   A += B;
@@ -367,17 +367,17 @@ FUNCTION:   CMD5Checksum::II
 DETAILS:    protected
 DESCRIPTION:  Implementation of basic MD5 transformation algorithm
 RETURNS:    none
-ARGUMENTS:    unsigned long &A, B, C, D : Current (partial) checksum
-        unsigned long X           : Input data
-        unsigned long S       : MD5_SXX Transformation constant
-        unsigned long T       : MD5_TXX Transformation constant
+ARGUMENTS:    unsigned L32b &A, B, C, D : Current (partial) checksum
+        unsigned L32b X           : Input data
+        unsigned L32b S       : MD5_SXX Transformation constant
+        unsigned L32b T       : MD5_TXX Transformation constant
 NOTES:      None
 *****************************************************************************************/
-void CMD5Checksum::II(unsigned long& A, unsigned long B, unsigned long C,
-                      unsigned long D, unsigned long X,
-                      unsigned long S, unsigned long T)
+void CMD5Checksum::II(unsigned L32b& A, unsigned L32b B, unsigned L32b C,
+                      unsigned L32b D, unsigned L32b X,
+                      unsigned L32b S, unsigned L32b T)
 {
-  unsigned long I = (C ^ (B | ~D));
+  unsigned L32b I = (C ^ (B | ~D));
   A += I + X + T;
   A = RotateLeft(A, S);
   A += B;
@@ -389,16 +389,16 @@ FUNCTION:   CMD5Checksum::ByteToDWord
 DETAILS:    private
 DESCRIPTION:  Transfers the data in an 8 bit array to a 32 bit array
 RETURNS:    void
-ARGUMENTS:    unsigned long* Output : the 32 bit (unsigned long) destination array 
+ARGUMENTS:    unsigned L32b* Output : the 32 bit (unsigned L32b) destination array 
         unsigned char* Input    : the 8 bit (unsigned char) source array
         unsigned int nLength  : the number of 8 bit data items in the source array
-NOTES:      Four BYTES from the input array are transferred to each unsigned long entry
+NOTES:      Four BYTES from the input array are transferred to each unsigned L32b entry
         of the output array. The first unsigned char is transferred to the bits (0-7) 
-        of the output unsigned long, the second unsigned char to bits 8-15 etc. 
-        The algorithm assumes that the input array is a multiple of 4 bytes long
+        of the output unsigned L32b, the second unsigned char to bits 8-15 etc. 
+        The algorithm assumes that the input array is a multiple of 4 bytes L32b
         so that there is a perfect fit into the array of 32 bit words.
 *****************************************************************************************/
-void CMD5Checksum::Byte2DWord(unsigned long* Output,
+void CMD5Checksum::Byte2DWord(unsigned L32b* Output,
                                unsigned char* Input, unsigned int nLength)
 {
   //entry invariants
@@ -410,10 +410,10 @@ void CMD5Checksum::Byte2DWord(unsigned long* Output,
   //transfer the data by shifting and copying
   for (; j < nLength; i++, j += 4)
   {
-    Output[i] = (unsigned long)Input[j] | 
-      (unsigned long)Input[j+1] << 8 | 
-      (unsigned long)Input[j+2] << 16 | 
-      (unsigned long)Input[j+3] << 24;
+    Output[i] = (unsigned L32b)Input[j] | 
+      (unsigned L32b)Input[j+1] << 8 | 
+      (unsigned L32b)Input[j+2] << 16 | 
+      (unsigned L32b)Input[j+3] << 24;
   }
 }
 
@@ -430,13 +430,13 @@ NOTES:      An MD5 checksum is calculated by four rounds of 'Transformation'.
 void CMD5Checksum::Transform(unsigned char Block[64])
 {
   //initialise local data with current checksum
-  unsigned long a = m_lMD5[0];
-  unsigned long b = m_lMD5[1];
-  unsigned long c = m_lMD5[2];
-  unsigned long d = m_lMD5[3];
+  unsigned L32b a = m_lMD5[0];
+  unsigned L32b b = m_lMD5[1];
+  unsigned L32b c = m_lMD5[2];
+  unsigned L32b d = m_lMD5[3];
 
   //copy BYTES from input 'Block' to an array of ULONGS 'X'
-  unsigned long X[16];
+  unsigned L32b X[16];
   Byte2DWord(X, Block, 64);
 
   //Perform Round 1 of the transformation
@@ -547,20 +547,20 @@ DETAILS:    private
 DESCRIPTION:  Transfers the data in an 32 bit array to a 8 bit array
 RETURNS:    void
 ARGUMENTS:    unsigned char* Output  : the 8 bit destination array 
-        unsigned long* Input  : the 32 bit source array
+        unsigned L32b* Input  : the 32 bit source array
         unsigned int nLength  : the number of 8 bit data items in the source array
-NOTES:      One unsigned long from the input array is transferred into four BYTES 
-        in the output array. The first (0-7) bits of the first unsigned long are 
+NOTES:      One unsigned L32b from the input array is transferred into four BYTES 
+        in the output array. The first (0-7) bits of the first unsigned L32b are 
         transferred to the first output unsigned char, bits bits 8-15 are transferred from
         the second unsigned char etc. 
         
-        The algorithm assumes that the output array is a multiple of 4 bytes long
+        The algorithm assumes that the output array is a multiple of 4 bytes L32b
         so that there is a perfect fit of 8 bit BYTES into the 32 bit DWORDs.
 *****************************************************************************************/
 
 
 void CMD5Checksum::DWord2Byte(unsigned char* Output,
-                               unsigned long* Input, unsigned int nLength)
+                               unsigned L32b* Input, unsigned int nLength)
 {
   
   //transfer the data by shifting and copying
@@ -648,7 +648,7 @@ ARGUMENTS:    unsigned char* Input    : input block
         unsigned int nInputLen : length of input block
 NOTES:      Computes the partial MD5 checksum for 'nInputLen' bytes of data in 'Input'
 *****************************************************************************************/
-void CMD5Checksum::Update(unsigned char* Input, unsigned long nInputLen)
+void CMD5Checksum::Update(unsigned char* Input, unsigned L32b nInputLen)
 {
   //Compute number of bytes mod 64
   unsigned int nIndex = (unsigned int)((m_nCount[0] >> 3) & 0x3F);

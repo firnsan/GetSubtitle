@@ -18,7 +18,11 @@
 #include <string>
 #include <iostream>
 
-
+#ifdef __LP64__
+#define L32b int
+#else
+#define L32b long
+#endif
 
 /****************************************************************************************
 This software is derived from the RSA Data Security, Inc. MD5 Message-Digest Algorithm. 
@@ -142,7 +146,7 @@ Laboratory for Computer Science and RSA Data Security, Inc., April 1992.
    3.1 Step 1. Append Padding Bits
    The message is "padded" (extended) so that its length (in bits) is
    congruent to 448, modulo 512. That is, the message is extended so
-   that it is just 64 bits shy of being a multiple of 512 bits long.
+   that it is just 64 bits shy of being a multiple of 512 bits L32b.
    Padding is always performed, even if the length of the message is
    already congruent to 448, modulo 512.
    Padding is performed as follows: a single "1" bit is appended to the
@@ -316,32 +320,32 @@ protected:
 
   //RSA MD5 implementation
   void Transform(unsigned char Block[64]);
-  void Update(unsigned char* Input, unsigned long nInputLen);
+  void Update(unsigned char* Input, unsigned L32b nInputLen);
   std::wstring Final();
-  inline unsigned long RotateLeft(unsigned long x, int n);
-  inline void FF(unsigned long& A, unsigned long B, unsigned long C,
-                 unsigned long D, unsigned long X,
-                 unsigned long S, unsigned long T);
-  inline void GG(unsigned long& A, unsigned long B, unsigned long C,
-                 unsigned long D, unsigned long X,
-                 unsigned long S, unsigned long T);
-  inline void HH(unsigned long& A, unsigned long B, unsigned long C,
-                 unsigned long D, unsigned long X,
-                 unsigned long S, unsigned long T);
-  inline void II(unsigned long& A, unsigned long B, unsigned long C,
-                 unsigned long D, unsigned long X,
-                 unsigned long S, unsigned long T);
+  inline unsigned L32b RotateLeft(unsigned L32b x, int n);
+  inline void FF(unsigned L32b& A, unsigned L32b B, unsigned L32b C,
+                 unsigned L32b D, unsigned L32b X,
+                 unsigned L32b S, unsigned L32b T);
+  inline void GG(unsigned L32b& A, unsigned L32b B, unsigned L32b C,
+                 unsigned L32b D, unsigned L32b X,
+                 unsigned L32b S, unsigned L32b T);
+  inline void HH(unsigned L32b& A, unsigned L32b B, unsigned L32b C,
+                 unsigned L32b D, unsigned L32b X,
+                 unsigned L32b S, unsigned L32b T);
+  inline void II(unsigned L32b& A, unsigned L32b B, unsigned L32b C,
+                 unsigned L32b D, unsigned L32b X,
+                 unsigned L32b S, unsigned L32b T);
 
   //utility functions
-  inline void DWord2Byte(unsigned char* Output, unsigned long* Input,
+  inline void DWord2Byte(unsigned char* Output, unsigned L32b* Input,
                           unsigned int nLength);
-  inline void Byte2DWord(unsigned long* Output, unsigned char* Input,
+  inline void Byte2DWord(unsigned L32b* Output, unsigned char* Input,
                           unsigned int nLength);
 
 private:
   unsigned char m_lpszBuffer[64];             //input buffer
-  unsigned long m_nCount[2];                  //number of bits, modulo 2^64 (lsb first)
-  unsigned long m_lMD5[4];                    //MD5 checksum
+  unsigned L32b m_nCount[2];                  //number of bits, modulo 2^64 (lsb first)
+  unsigned L32b m_lMD5[4];                    //MD5 checksum
 };
 
 #endif // #ifndef MD5CHECKSUM_H

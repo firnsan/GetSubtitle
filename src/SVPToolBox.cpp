@@ -1,21 +1,15 @@
-﻿
-#include "SVPToolBox.h"
+﻿#include "SVPToolBox.h"
 #include "Charconvert.h"
 #include "MD5Checksum.h"
-
 #include <stdio.h>
-
 #include <wchar.h> 
 #include <algorithm>
 #include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <zlib.h>
-//using namespace std;
 
 #define SVP_MIN(a, b)  (((a) < (b)) ? (a) : (b))
-
-
 
 CSVPToolBox::CSVPToolBox(void)
 {
@@ -508,10 +502,6 @@ std::wstring CSVPToolBox::getSubFileByTempid_STL(int iTmpID,char* strPath)
   else
     return szDefaultSubPath;
 }
-
-
-
-
 
 
 int CSVPToolBox::Char4ToInt(char* szBuf){
