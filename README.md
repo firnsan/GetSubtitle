@@ -39,7 +39,7 @@ If any question ,email me or have a look at https://github.com/firnsan/GetSubtit
 完毕后curl安装在：/usr/local/bin, /usr/local/lib
 
 
-##### 4.编译GetSubtitle v1.0,切换到本目录
+### 编译GetSubtitle v1.0,切换到本目录
     ./configure
     make
     make install（可省）
