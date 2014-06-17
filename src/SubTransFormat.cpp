@@ -84,13 +84,13 @@ std::wstring SubTransFormat::GetShortFileNameForSearch(std::wstring szFnPath)
 	std::wstring szFileName;
 
 
-    std::wstring::size_type pos;
-    pos=szFnPath.find_last_of(L'/');
+	std::wstring::size_type pos;
+	pos=szFnPath.find_last_of(L'/');
 	if(pos!=szFnPath.npos)
 		szFileName = szFnPath.substr(szFnPath.find_last_of(L'/'));
-    
+	
 	pos=szFnPath.find_last_of(L'\\');
-  	if(pos!=szFnPath.npos)
+	if(pos!=szFnPath.npos)
 		szFileName = szFnPath.substr(szFnPath.find_last_of(L'\\'));
 	pos = szFileName.find_last_of(L'.');
 	std::wstring szFileName2 = szFileName.substr(0, pos);
@@ -107,60 +107,60 @@ std::wstring SubTransFormat::GetShortFileNameForSearch(std::wstring szFnPath)
 std::wstring SubTransFormat::ComputerFileHash_STL(char* szFilePath)
 {
 
-  std::wstring szRet = L"";
-  int64_t offset[4];
+	std::wstring szRet = L"";
+	int64_t offset[4];
 
 
  
-  if (szRet.empty())
-  {
-    int stream;
-    //errno_t err;
-    //unsigned long timecost = GetTickCount();
-    //err =  _wsopen_s(&stream, szFilePath.c_str(),
-     // _O_BINARY|_O_RDONLY , _SH_DENYNO , _S_IREAD);
+	if (szRet.empty())
+	{
+		int stream;
+		//errno_t err;
+		//unsigned long timecost = GetTickCount();
+		//err =	 _wsopen_s(&stream, szFilePath.c_str(),
+		// _O_BINARY|_O_RDONLY , _SH_DENYNO , _S_IREAD);
 
-    FILE *fp=fopen(szFilePath,"rb");
-	if(fp==NULL){printf("open video file error!\n!");exit(1);}
-	stream=fileno(fp);
-    //if (!err)
-	if(fp!=NULL)
-    {   struct stat buf;
-        fstat(stream,&buf);
-        int64_t ftotallen  = buf.st_size;
-      if (ftotallen < 8192)
-      {
-        //a video file less then 8k? impossible!
-      }
-      else
-      {
-        offset[3] = ftotallen - 8192;
-        offset[2] = ftotallen / 3;
-        offset[1] = ftotallen / 3 * 2;
-        offset[0] = 4096;
-        CMD5Checksum mMd5;
-        unsigned char bBuf[4096];
-        for(int i = 0; i < 4;i++)
-        {
-          lseek(stream, offset[i], 0);
-          //hash 4k block
-          int readlen = read( stream, bBuf, 4096);
-          std::wstring szMD5 = mMd5.GetMD5(bBuf, readlen); 
-          if(!szRet.empty())
-            szRet.append(L";");
-          szRet.append(szMD5);
-        }
-      }
-      //_close(stream);
-    }
-    //timecost =  GetTickCount() - timecost;
-  }
+		FILE *fp=fopen(szFilePath,"rb");
+		if(fp==NULL){printf("open video file error!\n!");exit(1);}
+		stream=fileno(fp);
+		//if (!err)
+		if(fp!=NULL)
+		{	struct stat buf;
+			fstat(stream,&buf);
+			int64_t ftotallen  = buf.st_size;
+			if (ftotallen < 8192)
+			{
+				//a video file less then 8k? impossible!
+			}
+			else
+			{
+				offset[3] = ftotallen - 8192;
+				offset[2] = ftotallen / 3;
+				offset[1] = ftotallen / 3 * 2;
+				offset[0] = 4096;
+				CMD5Checksum mMd5;
+				unsigned char bBuf[4096];
+				for(int i = 0; i < 4;i++)
+				{
+					lseek(stream, offset[i], 0);
+					//hash 4k block
+					int readlen = read( stream, bBuf, 4096);
+					std::wstring szMD5 = mMd5.GetMD5(bBuf, readlen); 
+					if(!szRet.empty())
+						szRet.append(L";");
+					szRet.append(szMD5);
+				}
+			}
+			//_close(stream);
+		}
+		//timecost =  GetTickCount() - timecost;
+	}
 
 
 
-  //szFilePath.Format(_T("Vid Hash Cost %d milliseconds "), timecost);
-  //SVP_LogMsg(szFilePath);
-  return szRet;
+	//szFilePath.Format(_T("Vid Hash Cost %d milliseconds "), timecost);
+	//SVP_LogMsg(szFilePath);
+	return szRet;
 }
 
 std::wstring SubTransFormat::genVHash(const char* szTerm2, const char* szTerm3)
@@ -182,20 +182,20 @@ std::wstring SubTransFormat::genVHash(const char* szTerm2, const char* szTerm3)
 }
 
 /*std::wstring SubTransFormat::genVHash(const wchar_t* szTerm2, const wchar_t* szTerm3)//这个函数不行
-{
+  {
 
-	char buffx[4096],uniqueIDHash[UNIQU_HASH_SIZE];
+  char buffx[4096],uniqueIDHash[UNIQU_HASH_SIZE];
 
-	memset(buffx, 0, 4096);
+  memset(buffx, 0, 4096);
 
-	memset(uniqueIDHash,0,UNIQU_HASH_SIZE);
-#ifdef CLIENTKEY	
-	sprintf_s( buffx, 4096, CLIENTKEY , SVP_REV_NUMBER, szTerm2, szTerm3, uniqueIDHash);
-#else
-	//这个函数第三个参数不能为wchar*,但swprintf_s第三个参数可以是char*
-	snprintf( buffx, 4096, "un authiority client %d %s %s %s", SVP_REV_NUMBER, szTerm2, szTerm3, uniqueIDHash);
-#endif
-	CMD5Checksum cmd5;
-	return cmd5.GetMD5((unsigned char*)buffx, strlen(buffx));
+  memset(uniqueIDHash,0,UNIQU_HASH_SIZE);
+  #ifdef CLIENTKEY	
+  sprintf_s( buffx, 4096, CLIENTKEY , SVP_REV_NUMBER, szTerm2, szTerm3, uniqueIDHash);
+  #else
+  //这个函数第三个参数不能为wchar*,但swprintf_s第三个参数可以是char*
+  snprintf( buffx, 4096, "un authiority client %d %s %s %s", SVP_REV_NUMBER, szTerm2, szTerm3, uniqueIDHash);
+  #endif
+  CMD5Checksum cmd5;
+  return cmd5.GetMD5((unsigned char*)buffx, strlen(buffx));
 
-    }*/
+  }*/

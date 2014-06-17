@@ -16,7 +16,7 @@ char* WideChar2MultiByte(const wchar_t* szIn)
 
 wchar_t* MutliByte2WideChar(const char* szIn)
 {
-    size_t len=strlen(szIn)+1;
+	size_t len=strlen(szIn)+1;
 
 	wchar_t* szOut=(wchar_t*)malloc(sizeof(wchar_t)*len);
 	mbstowcs(szOut,szIn,len);
