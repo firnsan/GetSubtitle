@@ -1,47 +1,49 @@
-######说明
-GetSubtitle v1.0
-GetSubtitle是linux下的实用工具，能够自动从射手网下载最匹配的电影字幕。
-源码地址：https://github.com/firnsan/GetSubtitle
-作者：firnsan@gmail.com
-用法：运行"GetSubtitle VideoPath（你的电影路径）"即可下载字幕到电影所在路径。
-比如：GetSubtitle ~/oz.the.great.and.powerful.2013.720p.bluray.x264-sparks.mkv
+## GetSubtitle v1.0
+Description: GetSubtitle是linux下的实用工具，能够自动从射手网下载最匹配的电影字幕。
+Source: https://github.com/firnsan/GetSubtitle
+Autor: firnsan@gmail.com
+
+If any question ,email me or have a look at https://github.com/firnsan/GetSubtitle/issues
 
 
-有编译问题或使用问题,在这寻找解决办法https://github.com/firnsan/GetSubtitle/issues
-
-
-######编译curl库和GetSubtitle v1.0
+###用法:
+    运行"GetSubtitle VideoPath"即可下载字幕到电影所在路径。
+    可以加上-e参数下载英文字幕：GetSubtitle VideoPath -e
+    比如：GetSubtitle ~/oz.the.great.and.powerful.2013.720p.bluray.x264-sparks.mkv -e
+    
+---
+## 编译curl库和GetSubtitle v1.0
 由于本软件用到了第三方类库：curl库，请您先编译安装curl库。
 需要用到的第三方库下载地址：http://pan.baidu.com/share/link?shareid=78535552&uk=2217112330
 
-编译安装curl库步骤如下：
-1.首先编译openssl，切换到openssl源码目录
-
-./config shared no-asm（如果没有no-asm会可能会出现错误：md5-x86_64.s:481: Error: 0xab9423a7 out range of signed 32bit displacement）
-make
-sudo make install
+####编译安装curl库步骤如下：
+##### 1.首先编译openssl，切换到openssl源码目录
+    ./config shared no-asm（如果没有no-asm会可能会出现错误：md5-x86_64.s:481: Error: 0xab9423a7 out range of signed 32bit displacement）
+    make
+    sudo make install
 完毕后opensll将在：/usr/loacl/ssl
 
-2.编译zlib，切换到zlib源码目录
 
-./configure
-make test（不可省）
-sudo make install
+##### 2.编译zlib，切换到zlib源码目录
+    ./configure
+    make test（不可省）
+    sudo make install
 完毕后zlib安装在： /usr/local/lib/libz.* 和/usr/local/include/zlib.h
 
-3.编译curl，切换到curl源码目录。如果openssl在/usr/loacl/ssl下，直接运行下面的：
-./configure --with-ssl --with-zlib=/usr/local/lib/
-make
+
+##### 3.编译curl，切换到curl源码目录。如果openssl在/usr/loacl/ssl下，直接运行下面的：
+    ./configure --with-ssl --with-zlib=/usr/local/lib/(这是添加刚才zlib的所在路径)
+    make
+    sudo make install
 （如果出现找不到libssl.so.0.9.8,libcrypto.so.0.9.8的情况，请将这两个文件从/usr/local/ssl/lib考到/usr/local/lib,然后再make）
-sudo make install
 完毕后curl安装在：/usr/local/bin, /usr/local/lib
 
-4.编译GetSubtitle v1.0,切换到本目录
-./configure
-make
-make install（可省）
-安装好后，运行GetSubtitle VideoPath（你的电影路径）即可下载字幕到电影所在路径。
-比如：GetSubtitle ~/oz.the.great.and.powerful.2013.720p.bluray.x264-sparks.mkv
 
+##### 4.编译GetSubtitle v1.0,切换到本目录
+    ./configure
+    make
+    make install（可省）
 
-
+------
+安装好后，运行GetSubtitle VideoPath ，即可下载字幕到电影所在路径。
+比如: GetSubtitle ~/oz.the.great.and.powerful.2013.720p.bluray.x264-sparks.mkv
