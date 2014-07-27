@@ -65,7 +65,7 @@ std::wstring CSVPToolBox::getVideoFileBasename(std::wstring szVidPath, std::vect
 void CSVPToolBox::filePutContent_STL(std::wstring szFilePath, std::wstring szData, bool bAppend)
 {
 	FILE* f;
-	if ( (f=fopen(WideChar2MultiByte(szFilePath.c_str()), "w"))=NULL)
+	if ( (f=fopen(WideChar2MultiByte(szFilePath.c_str()), "w"))==NULL)
 	{
 		fwrite(szData.c_str(), sizeof(wchar_t), szData.length(), f);
 		fclose(f);
@@ -506,7 +506,7 @@ std::wstring CSVPToolBox::getSubFileByTempid_STL(int iTmpID,char* strPath)
 
 int CSVPToolBox::Char4ToInt(char* szBuf){
 
-	int iData =	  ( ((int)szBuf[0] & 0xff) << 24) |	 ( ((int)szBuf[1] & 0xff) << 16) | ( ((int)szBuf[2] & 0xff) << 8) |	 szBuf[3] & 0xff;;
+	int iData =	  ( ((int)szBuf[0] & 0xff) << 24) |	 ( ((int)szBuf[1] & 0xff) << 16) | ( ((int)szBuf[2] & 0xff) << 8) | ((int)szBuf[3] & 0xff);;
 	
 	return iData;
 }
