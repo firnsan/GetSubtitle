@@ -6,7 +6,7 @@
 char* WideChar2MultiByte(const wchar_t* szIn)
 {
 	size_t len=wcslen(szIn)+1;
-
+	len=len*4; //L("你")的大小是4, "你"的大小是3
 	char* szOut=(char*)malloc(sizeof(char)*len);
 	wcstombs( szOut, szIn, len);
 	
